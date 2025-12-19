@@ -46,6 +46,17 @@ video[preload="metadata"] {
 }
 
 /* Website shop product cards - ALL PRODUCTS page */
+/* Ensure parent containers have proper positioning */
+.oe_product_image,
+.oe_product_image_wrapper,
+.oe_product_image_img_wrapper,
+.oe_product_image_img_wrapper_primary {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+}
+
 /* Target all possible container classes */
 .oe_product_image .o_product_video_container,
 .oe_product_image .o_custom_video_container,
@@ -60,8 +71,13 @@ video[preload="metadata"] {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
     overflow: hidden !important;
     background: #000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 /* Force videos to fill - target ALL video elements in product cards */
@@ -81,13 +97,14 @@ video[preload="metadata"] {
     height: 100% !important;
     min-width: 100% !important;
     min-height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    object-fit: fill !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
     object-position: center center !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
+    position: relative !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* Hide native video controls when data attribute indicates they should be hidden */
