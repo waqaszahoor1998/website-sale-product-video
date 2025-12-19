@@ -65,32 +65,17 @@ class ProductTemplate(models.Model):
         for template in self:
             template.has_video = bool(template.video_url or template.video_file)
 
-    @api.depends('video_url', 'video_file', 'video_autoplay', 'video_loop', 'video_hide_controls', 'video_hide_fullscreen')
+    @api.depends('video_url', 'video_file')
     def _compute_preview_embed_code(self):
-        """Preview embed code with control settings so toggles work in preview"""
+        """Preview embed code WITHOUT control settings to prevent black screen when toggling"""
         for template in self:
             embed = False
             if template.video_file:
-                # For uploaded video files, create HTML5 video tag with current settings
-                embed = template._get_video_file_embed_preview_with_settings()
+                # For uploaded video files, create HTML5 video tag with basic controls
+                embed = template._get_video_file_embed_preview()
             elif template.video_url:
-                # For video URLs, use the embed code from html_editor with control params
-                video_url = template.video_url
-                # Add control parameters to YouTube/Vimeo URLs if needed
-                if template.video_autoplay:
-                    if 'youtube.com' in video_url or 'youtu.be' in video_url:
-                        if '?' in video_url:
-                            separator = '&' if 'autoplay' not in video_url else ''
-                            video_url = f"{video_url}{separator}autoplay=1&mute=1"
-                        else:
-                            video_url = f"{video_url}?autoplay=1&mute=1"
-                    elif 'vimeo.com' in video_url:
-                        if '?' in video_url:
-                            separator = '&' if 'autoplay' not in video_url else ''
-                            video_url = f"{video_url}{separator}autoplay=1&muted=1"
-                        else:
-                            video_url = f"{video_url}?autoplay=1&muted=1"
-                embed = get_video_embed_code(video_url)
+                # For video URLs, use the basic embed code from html_editor (no control params)
+                embed = get_video_embed_code(template.video_url)
             template.preview_embed_code = embed
 
     @api.depends('video_url', 'video_file', 'video_autoplay', 'video_loop', 'video_hide_controls', 'video_hide_fullscreen')

@@ -90,6 +90,35 @@ video[preload="metadata"] {
     left: 0 !important;
 }
 
+/* Hide native video controls when data attribute indicates they should be hidden */
+video[data-video-hide-controls="true"],
+.o_custom_video_container[data-video-hide-controls="true"] video,
+.o_product_video_container[data-video-hide-controls="true"] video {
+    pointer-events: all !important;
+}
+
+/* Ensure controls are visible when not hidden */
+video[controls]:not([data-video-hide-controls="true"]) {
+    pointer-events: all !important;
+}
+
+/* Play overlay icon styling */
+.video-play-overlay {
+    transition: opacity 0.3s ease-in-out !important;
+}
+
+.video-play-overlay.hidden {
+    opacity: 0 !important;
+    display: none !important;
+}
+
+/* Product video wrapper on website */
+.product-video-container-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
 /* Product detail page carousel */
 .o_wsale_product_page .o_product_video_container,
 .o_wsale_product_page .o_custom_video_container,

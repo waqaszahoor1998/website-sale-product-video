@@ -48,10 +48,15 @@
             <!-- Show video if primary_image_holder is product.template with video, otherwise show image -->
             <div
                 t-if="primary_image_holder._name == 'product.template' and primary_image_holder.has_video and primary_image_holder.embed_code"
-                class="oe_product_image_img_wrapper oe_product_image_img_wrapper_primary d-flex h-100 justify-content-center align-items-center"
+                class="oe_product_image_img_wrapper oe_product_image_img_wrapper_primary d-flex h-100 justify-content-center align-items-center product-video-container-wrapper"
                 style="background: #000; position: relative; overflow: hidden;"
             >
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; pointer-events: none;">
+                <!-- Only show play icon overlay if autoplay is disabled -->
+                <div
+                    t-if="not primary_image_holder.video_autoplay"
+                    class="video-play-overlay"
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; pointer-events: none; transition: opacity 0.3s;"
+                >
                     <i class="fa fa-play-circle fa-3x text-white" style="text-shadow: 0 2px 4px rgba(0,0,0,0.8);"/>
                 </div>
                 <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">

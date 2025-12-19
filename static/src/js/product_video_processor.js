@@ -99,6 +99,26 @@ export function processProductVideos() {
             console.log('✅ Applied: Fullscreen ENABLED');
         }
         
+        // Hide play icon overlay when video starts playing
+        video.addEventListener('play', function() {
+            const overlay = this.closest('.product-video-container-wrapper, .oe_product_image_img_wrapper_primary')?.querySelector('.video-play-overlay');
+            if (overlay) {
+                overlay.style.opacity = '0';
+                overlay.style.display = 'none';
+            }
+        });
+        
+        // Show play icon overlay when video is paused (if controls are visible)
+        video.addEventListener('pause', function() {
+            if (this.controls && !this.ended) {
+                const overlay = this.closest('.product-video-container-wrapper, .oe_product_image_img_wrapper_primary')?.querySelector('.video-play-overlay');
+                if (overlay) {
+                    overlay.style.opacity = '1';
+                    overlay.style.display = 'block';
+                }
+            }
+        });
+        
         console.log('✅ Product video processing complete');
     });
 }
