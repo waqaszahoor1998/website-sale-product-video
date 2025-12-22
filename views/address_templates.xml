@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Override website_sale.address_form_fields to customize address form -->
+    <template id="address_form_fields_optional" inherit_id="website_sale.address_form_fields">
+        
+        <!-- Hide Company Name field -->
+        <xpath expr="//div[@id='company_name_div']" position="attributes">
+            <attribute name="style">display: none !important;</attribute>
+        </xpath>
+        
+        <!-- Hide VAT field -->
+        <xpath expr="//div[@id='div_vat']" position="attributes">
+            <attribute name="style">display: none !important;</attribute>
+        </xpath>
+        
+        <!-- Rename "Street and Number" to "Address" -->
+        <xpath expr="//label[@for='o_street']" position="replace">
+            <label class="col-form-label" for="o_street">
+                Address
+            </label>
+        </xpath>
+        
+        <!-- Hide Apartment, suite, etc. field -->
+        <xpath expr="//div[@id='div_street2']" position="attributes">
+            <attribute name="style">display: none !important;</attribute>
+        </xpath>
+        
+        <!-- Hide State/Province field but keep element in DOM for JavaScript compatibility -->
+        <xpath expr="//div[@id='div_state']" position="attributes">
+            <attribute name="style">display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important;</attribute>
+        </xpath>
+        <xpath expr="//select[@id='o_state_id']" position="attributes">
+            <attribute name="style">display: none !important;</attribute>
+        </xpath>
+        
+        <!-- Set Pakistan as default country when no country is selected -->
+        <xpath expr="//select[@id='o_country_id']/option[@t-att-code='c.code']" position="attributes">
+            <attribute name="t-att-selected">(c.code == 'PK' and not country and not partner_sudo.country_id) or (c.id == (country.id if country else (partner_sudo.country_id.id if partner_sudo.country_id else False)))</attribute>
+        </xpath>
+        
+        <!-- Override required_fields hidden input to only include name, street, city, phone -->
+        <xpath expr="//input[@name='required_fields']" position="attributes">
+            <attribute name="t-att-value">'name,street,city,phone'</attribute>
+        </xpath>
+        
+    </template>
+</odoo>

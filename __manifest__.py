@@ -12,19 +12,23 @@
     """,
     'depends': [
         'website_sale',
+        'portal',
     ],
     'data': [
         'views/product_template_views.xml',
         'views/product_template_templates.xml',
+        'views/address_templates.xml',
     ],
-            'assets': {
-                'web.assets_frontend': [
-                    'website_sale_product_video/static/src/js/product_video_processor.js',
-                ],
-                'web.assets_backend': [
-                    'website_sale_product_video/static/src/css/product_video_form.css',
-                ],
-            },
+    'assets': {
+        'web.assets_frontend': [
+            'website_sale_product_video/static/src/js/product_video_processor.js',
+            'website_sale_product_video/static/src/js/address_optional.js',
+            'website_sale_product_video/static/src/css/address_optional.css',
+        ],
+        'web.assets_backend': [
+            'website_sale_product_video/static/src/css/product_video_form.css',
+        ],
+    },
     'installable': True,
     'application': False,
     'auto_install': False,

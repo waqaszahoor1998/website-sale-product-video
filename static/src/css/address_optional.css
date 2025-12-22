@@ -1,0 +1,56 @@
+/* Show single asterisk for required fields only */
+.o_website_form_label_required::after {
+    content: ' *' !important;
+    color: #dc3545 !important;
+    font-weight: bold !important;
+    margin-left: 2px;
+}
+
+/* Remove asterisks from optional fields */
+label.label-optional::after,
+.col-form-label.label-optional::after,
+label:not(.o_website_form_label_required)::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Hide any duplicate asterisks that might be added by Odoo or other modules */
+.o_website_form_label_required .text-danger,
+.o_website_form_label_required span.text-danger {
+    display: none !important;
+}
+
+/* Required field validation styling */
+input[required]:invalid,
+select[required]:invalid,
+textarea[required]:invalid {
+    border-color: #dc3545 !important;
+}
+
+input[required]:focus:invalid,
+select[required]:focus:invalid,
+textarea[required]:focus:invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Validation error messages */
+input[required]:invalid + .invalid-feedback,
+select[required]:invalid + .invalid-feedback,
+textarea[required]:invalid + .invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Hide State/Province field */
+#div_state,
+div#div_state,
+[id="div_state"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
